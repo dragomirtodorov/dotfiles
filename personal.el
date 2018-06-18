@@ -1,13 +1,11 @@
 ;; install additional package for C/C++ development
 (defvar package-list)
 (setq package-list '(ag
-                     rtags
                      irony
                      clang-format
-                     company-rtags
                      company-irony
                      company-irony-c-headers
-                     flycheck-rtags))
+                     ggtags))
 
 ;; fetch the list of packages available
 (unless package-archive-contents
@@ -27,6 +25,11 @@
           (lambda () (setq flycheck-clang-language-standard "c++11")))
 ;; Turn flycheck on everywhere
 (global-flycheck-mode)
+
+(add-hook 'c-mode-common-hook
+          (lambda ()
+            (when (derived-mode-p 'c-mode 'c++-mode 'java-mode)
+              (ggtags-mode 1))))
 
 ;; clang-format can be triggered using C-M-tab
 (require 'clang-format)
