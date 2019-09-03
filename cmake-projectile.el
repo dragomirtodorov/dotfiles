@@ -42,6 +42,7 @@ with a prefix ARG."
     (puthash project-root cmake-cmd projectile-cmake-cmd-map)
     (projectile-run-compilation cmake-cmd)))
 
-(global-set-key (kbd "C-c p C") #'projectile-cmake-project)
+;;(global-unset-key (kbd "C-c p C") #'projectile-cmake-project)
+;;(global-set-key   (kbd "C-c p C") #'projectile-cmake-project)
 
 (provide 'cmake-projectile)

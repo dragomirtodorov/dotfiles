@@ -3,6 +3,7 @@
 (setq package-list '(ag
                      irony
                      clang-format
+                     elpy
                      company-irony
                      company-irony-c-headers
                      ggtags))
@@ -16,6 +17,8 @@
   (unless (package-installed-p package)
     (package-install package)))
 
+;; Python enviornment
+(elpy-enable)
 
 ;; Require flycheck to be present
 (require 'flycheck)
@@ -26,6 +29,7 @@
 ;; Turn flycheck on everywhere
 (global-flycheck-mode)
 
+(require 'ggtags)
 (add-hook 'c-mode-common-hook
           (lambda ()
             (when (derived-mode-p 'c-mode 'c++-mode 'java-mode)
@@ -105,3 +109,20 @@
 (semantic-remove-system-include "/usr/local/include/" 'c++-mode)
 (add-hook 'semantic-init-hooks
           'semantic-reset-system-include)
+
+
+(require 'srefactor)
+(require 'srefactor-lisp)
+
+;; OPTIONAL: ADD IT ONLY IF YOU USE C/C++.
+(semantic-mode 1) ;; -> this is optional for Lisp
+
+(define-key c-mode-map (kbd "M-RET") 'srefactor-refactor-at-point)
+(define-key c++-mode-map (kbd "M-RET") 'srefactor-refactor-at-point)
+(global-set-key (kbd "M-RET o") 'srefactor-lisp-one-line)
+(global-set-key (kbd "M-RET m") 'srefactor-lisp-format-sexp)
+(global-set-key (kbd "M-RET d") 'srefactor-lisp-format-defun)
+(global-set-key (kbd "M-RET b") 'srefactor-lisp-format-buffer)
+
+(provide 'personal)
+;;;
