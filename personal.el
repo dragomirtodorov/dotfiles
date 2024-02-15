@@ -19,6 +19,8 @@
 
 ;; Python enviornment
 (elpy-enable)
+;; Disable whitespace mode
+(setq prelude-whitespace nil)
 
 ;; Require flycheck to be present
 (require 'flycheck)
@@ -123,6 +125,13 @@
 (global-set-key (kbd "M-RET m") 'srefactor-lisp-format-sexp)
 (global-set-key (kbd "M-RET d") 'srefactor-lisp-format-defun)
 (global-set-key (kbd "M-RET b") 'srefactor-lisp-format-buffer)
+
+
+(defun remove-dos-eol ()
+  "Do not show ^M in files containing mixed UNIX and DOS line endings."
+  (interactive)
+  (setq buffer-display-table (make-display-table))
+  (aset buffer-display-table ?\^M []))
 
 (provide 'personal)
 ;;;
